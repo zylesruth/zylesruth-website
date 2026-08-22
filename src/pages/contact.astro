@@ -2,18 +2,67 @@
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import { site } from "../data/site";
+
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
+const inputClass =
+  "mt-1 w-full rounded-lg border border-line bg-cream px-4 py-2.5 text-ink outline-none transition-colors focus:border-rust";
 ---
 
 <Layout title="Contact" description="Get in touch.">
   <PageHero eyebrow="Get in touch" title="Contact" intro="For business inquiries, press, or just to say hello." />
 
-  <section class="mx-auto max-w-md px-6 pb-24 text-center">
-    <a
-      href={`mailto:${site.email}`}
-      class="inline-block rounded-full bg-ink px-8 py-3 text-sm font-medium text-cream transition-colors hover:bg-rust"
-    >
-      {site.email}
-    </a>
+  <section class="mx-auto max-w-md px-6 pb-24">
+    {
+      accessKey ? (
+        <form id="contact-form" class="space-y-4">
+          <input type="hidden" name="access_key" value={accessKey} />
+          <input type="hidden" name="subject" value={`New message from ${site.domain}`} />
+          <input
+            type="checkbox"
+            name="botcheck"
+            class="hidden"
+            style="display:none"
+            tabindex="-1"
+            autocomplete="off"
+          />
+
+          <div>
+            <label for="name" class="block text-sm font-medium text-ink">
+              Name
+            </label>
+            <input id="name" name="name" type="text" required class={inputClass} />
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-ink">
+              Email
+            </label>
+            <input id="email" name="email" type="email" required class={inputClass} />
+          </div>
+          <div>
+            <label for="message" class="block text-sm font-medium text-ink">
+              Message
+            </label>
+            <textarea id="message" name="message" rows="5" required class={inputClass} />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full rounded-full bg-ink px-6 py-3 text-sm font-medium text-cream transition-colors hover:bg-rust disabled:opacity-60"
+          >
+            Send message
+          </button>
+          <p id="form-status" class="text-center text-sm text-ink-soft" role="status" />
+        </form>
+      ) : (
+        <p class="text-center text-ink-soft">
+          The contact form isn't configured yet — email directly at{" "}
+          <a href={`mailto:${site.email}`} class="text-rust underline">
+            {site.email}
+          </a>
+          .
+        </p>
+      )
+    }
 
     <div class="mt-8 flex justify-center gap-6 text-sm font-medium text-ink-soft">
       {
@@ -26,3 +75,39 @@ import { site } from "../data/site";
     </div>
   </section>
 </Layout>
+
+<script>
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!(form instanceof HTMLFormElement) || !status) return;
+
+    const data = new FormData(form);
+    if (data.get("botcheck")) return;
+
+    const submitBtn = form.querySelector("button[type=submit]") as HTMLButtonElement | null;
+    submitBtn?.setAttribute("disabled", "true");
+    status.textContent = "Sending…";
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      const json = await res.json();
+      if (json.success) {
+        status.textContent = "Thanks — I'll be in touch soon.";
+        form.reset();
+      } else {
+        status.textContent = "Something went wrong. Please try emailing directly instead.";
+      }
+    } catch {
+      status.textContent = "Something went wrong. Please try emailing directly instead.";
+    } finally {
+      submitBtn?.removeAttribute("disabled");
+    }
+  });
+</script>

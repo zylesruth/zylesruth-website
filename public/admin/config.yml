@@ -1,0 +1,24 @@
+backend:
+  name: github
+  # Replace with your GitHub "owner/repo" once this project is pushed to GitHub.
+  repo: your-github-username/zylesruth-website
+  branch: main
+  # Replace with your live domain once deployed (must match the OAuth app's callback host).
+  base_url: https://www.zylesruth.com
+  auth_endpoint: api/auth
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false, required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
