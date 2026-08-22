@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+
+const books = [
+  {
+    title: "[Placeholder Book Title]",
+    year: "2024",
+    blurb: "A one or two sentence description of what the book is about and who it's for.",
+    href: "#",
+  },
+  {
+    title: "[Placeholder Book Title]",
+    year: "2021",
+    blurb: "Swap this out for a real title, cover, and blurb.",
+    href: "#",
+  },
+];
+---
+
+<Layout title="Books" description="Books written and published.">
+  <PageHero
+    eyebrow="Published"
+    title="Books"
+    intro="Placeholder entries — add your real titles, covers, and links to buy or read."
+  />
+
+  <section class="mx-auto max-w-3xl px-6 pb-24">
+    <div class="grid gap-6 sm:grid-cols-2">
+      {
+        books.map((b) => (
+          <a
+            href={b.href}
+            class="group block overflow-hidden rounded-2xl border border-line bg-cream-100 transition-all hover:-translate-y-0.5 hover:border-rust hover:shadow-md"
+          >
+            <div class="flex h-56 items-center justify-center bg-linear-to-br from-ink to-rust-dark">
+              <span class="px-6 text-center font-display text-lg font-semibold text-cream/90">
+                {b.title}
+              </span>
+            </div>
+            <div class="p-5">
+              <div class="flex items-baseline justify-between gap-2">
+                <h3 class="font-display text-lg font-semibold text-ink transition-colors group-hover:text-rust">
+                  {b.title}
+                </h3>
+                <span class="text-xs font-medium text-ink-soft">{b.year}</span>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-ink-soft">{b.blurb}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

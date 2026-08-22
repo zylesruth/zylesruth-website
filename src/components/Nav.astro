@@ -1,0 +1,66 @@
+---
+import { site, nav } from "../data/site";
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 border-b border-line/80 bg-cream/90 backdrop-blur">
+  <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+    <a href="/" class="font-display text-lg font-semibold tracking-tight text-ink">
+      {site.name}
+    </a>
+
+    <button
+      id="nav-toggle"
+      class="text-ink md:hidden"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <nav class="hidden gap-7 text-sm font-medium text-ink-soft md:flex">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "transition-colors hover:text-rust",
+              currentPath === item.href && "text-rust",
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <nav id="mobile-nav" class="hidden flex-col gap-1 border-t border-line bg-cream px-6 pb-4 md:hidden">
+    {
+      nav.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            "block py-2 text-sm font-medium text-ink-soft transition-colors hover:text-rust",
+            currentPath === item.href && "text-rust",
+          ]}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const mobileNav = document.getElementById("mobile-nav");
+  toggle?.addEventListener("click", () => {
+    const isHidden = mobileNav?.classList.contains("hidden");
+    mobileNav?.classList.toggle("hidden");
+    mobileNav?.classList.toggle("flex");
+    toggle.setAttribute("aria-expanded", String(isHidden));
+  });
+</script>

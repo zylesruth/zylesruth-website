@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import { site } from "../data/site";
+---
+
+<Layout title="Contact" description="Get in touch.">
+  <PageHero eyebrow="Get in touch" title="Contact" intro="For business inquiries, press, or just to say hello." />
+
+  <section class="mx-auto max-w-md px-6 pb-24 text-center">
+    <a
+      href={`mailto:${site.email}`}
+      class="inline-block rounded-full bg-ink px-8 py-3 text-sm font-medium text-cream transition-colors hover:bg-rust"
+    >
+      {site.email}
+    </a>
+
+    <div class="mt-8 flex justify-center gap-6 text-sm font-medium text-ink-soft">
+      {
+        site.social.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-rust">
+            {s.label}
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

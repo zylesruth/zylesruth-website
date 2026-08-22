@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+
+const chapters = [
+  {
+    title: "Where it began",
+    body: "[Placeholder] Every story needs a starting point — where you grew up, the people who shaped you early on, and the first spark of whatever it is that's driven you since. Replace this paragraph with your own beginning: the town, the household, the moment that set things in motion.",
+  },
+  {
+    title: "Turning points",
+    body: "[Placeholder] The decisions that changed direction — a move, a risk, a failure that taught more than any success. This is the place to be honest about what didn't go to plan, and what you learned from it.",
+  },
+  {
+    title: "What I've built",
+    body: "[Placeholder] A short bridge into your work — the businesses, the writing, the projects. Keep it brief here; the Businesses and Books pages go deeper. This paragraph should read like a summary a friend could repeat back to someone else.",
+  },
+  {
+    title: "Today",
+    body: "[Placeholder] Where things stand now, and what you're focused on next. End on something forward-looking — a project in motion, a place you're headed, a question you're still chasing.",
+  },
+];
+---
+
+<Layout title="Story" description="The story so far — where it began, the turning points, and where things stand today.">
+  <PageHero
+    eyebrow="About"
+    title="My Story"
+    intro="This is a placeholder narrative — replace each section below with your own words."
+  />
+
+  <section class="mx-auto max-w-2xl px-6 pb-24">
+    <div class="space-y-14">
+      {
+        chapters.map((c) => (
+          <div>
+            <h2 class="font-display text-2xl font-semibold text-ink">{c.title}</h2>
+            <p class="mt-3 leading-relaxed text-ink-soft">{c.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

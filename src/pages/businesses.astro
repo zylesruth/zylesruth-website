@@ -1,0 +1,60 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+
+const ventures = [
+  {
+    name: "[Placeholder Venture One]",
+    status: "Active",
+    role: "Founder",
+    blurb: "One or two sentences on what the business does and who it serves.",
+    href: "#",
+  },
+  {
+    name: "[Placeholder Venture Two]",
+    status: "Active",
+    role: "Co-founder",
+    blurb: "What problem it solves, and what makes it distinct.",
+    href: "#",
+  },
+  {
+    name: "[Placeholder Venture Three]",
+    status: "Acquired",
+    role: "Founder",
+    blurb: "A short note on the outcome — acquired, sunset, or still running quietly.",
+    href: "#",
+  },
+];
+---
+
+<Layout title="Businesses" description="The ventures I've built, backed, or run.">
+  <PageHero
+    eyebrow="Ventures"
+    title="Businesses"
+    intro="Placeholder cards — replace with your real ventures, roles, and links."
+  />
+
+  <section class="mx-auto max-w-3xl px-6 pb-24">
+    <div class="space-y-5">
+      {
+        ventures.map((v) => (
+          <a
+            href={v.href}
+            class="group block rounded-2xl border border-line bg-cream-100 p-6 transition-all hover:-translate-y-0.5 hover:border-rust hover:shadow-md"
+          >
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h3 class="font-display text-xl font-semibold text-ink transition-colors group-hover:text-rust">
+                {v.name}
+              </h3>
+              <span class="rounded-full border border-line bg-cream px-3 py-1 text-xs font-medium text-ink-soft">
+                {v.status}
+              </span>
+            </div>
+            <p class="mt-1 text-sm font-medium text-rust">{v.role}</p>
+            <p class="mt-2 leading-relaxed text-ink-soft">{v.blurb}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

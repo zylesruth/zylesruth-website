@@ -1,0 +1,88 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+
+const highlights = [
+  {
+    label: "Story",
+    href: "/story",
+    blurb: "Where it started, and the path that led here.",
+  },
+  {
+    label: "Achievements",
+    href: "/achievements",
+    blurb: "Milestones worth pausing on.",
+  },
+  {
+    label: "Travel",
+    href: "/travel",
+    blurb: "Notes and photos from places that shaped me.",
+  },
+  {
+    label: "Businesses",
+    href: "/businesses",
+    blurb: "The ventures I've built and backed.",
+  },
+  {
+    label: "Books",
+    href: "/books",
+    blurb: "What I've written, and what's next.",
+  },
+  {
+    label: "Blog",
+    href: "/blog",
+    blurb: "Ongoing thoughts, in progress.",
+  },
+];
+---
+
+<Layout title="Home">
+  <section class="mx-auto max-w-4xl px-6 pt-20 pb-16 sm:pt-28 sm:pb-24">
+    <p class="text-sm font-medium uppercase tracking-widest text-rust">Welcome</p>
+    <h1 class="mt-4 max-w-2xl font-display text-5xl font-semibold leading-[1.1] tracking-tight text-ink sm:text-6xl">
+      {site.name}
+    </h1>
+    <p class="mt-6 max-w-xl text-lg text-ink-soft sm:text-xl">
+      {site.tagline} This is the compiled record of my life, the things I've
+      built, the places I've been, and the words I've written along the way.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a
+        href="/story"
+        class="rounded-full bg-ink px-6 py-3 text-sm font-medium text-cream transition-colors hover:bg-rust"
+      >
+        Read my story
+      </a>
+      <a
+        href="/blog"
+        class="rounded-full border border-line px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-rust hover:text-rust"
+      >
+        Visit the blog
+      </a>
+    </div>
+  </section>
+
+  <section class="border-t border-line bg-cream-100">
+    <div class="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+      <h2 class="font-display text-2xl font-semibold text-ink">Explore</h2>
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          highlights.map((h) => (
+            <a
+              href={h.href}
+              class="group rounded-2xl border border-line bg-cream p-6 transition-all hover:-translate-y-0.5 hover:border-rust hover:shadow-md"
+            >
+              <h3 class="font-display text-lg font-semibold text-ink transition-colors group-hover:text-rust">
+                {h.label}
+              </h3>
+              <p class="mt-2 text-sm text-ink-soft">{h.blurb}</p>
+              <span class="mt-4 inline-flex items-center text-sm font-medium text-rust opacity-0 transition-opacity group-hover:opacity-100">
+                Explore →
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

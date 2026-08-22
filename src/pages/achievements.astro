@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+
+const milestones = [
+  {
+    year: "2018",
+    title: "[Placeholder milestone]",
+    body: "A brief line on what happened and why it mattered — an award, a launch, a first of something.",
+  },
+  {
+    year: "2020",
+    title: "[Placeholder milestone]",
+    body: "Replace with a real achievement. Keep each entry to a sentence or two — the timeline works best skimmable.",
+  },
+  {
+    year: "2022",
+    title: "[Placeholder milestone]",
+    body: "Could be professional, personal, or creative — this timeline doesn't need to be all business.",
+  },
+  {
+    year: "2024",
+    title: "[Placeholder milestone]",
+    body: "Recent enough to feel current. Add a link out to press coverage or a project page if relevant.",
+  },
+  {
+    year: "2026",
+    title: "[Placeholder milestone]",
+    body: "What's happening now, or what just landed.",
+  },
+];
+---
+
+<Layout title="Achievements" description="Milestones and moments worth pausing on.">
+  <PageHero
+    eyebrow="Milestones"
+    title="Achievements"
+    intro="A running timeline — replace each entry with a real milestone, in your own words."
+  />
+
+  <section class="mx-auto max-w-2xl px-6 pb-24">
+    <ol class="relative border-l border-line pl-8">
+      {
+        milestones.map((m) => (
+          <li class="mb-12 last:mb-0">
+            <span class="absolute -left-[7px] mt-1.5 h-3 w-3 rounded-full bg-rust" />
+            <span class="text-sm font-semibold uppercase tracking-widest text-rust">{m.year}</span>
+            <h3 class="mt-1 font-display text-xl font-semibold text-ink">{m.title}</h3>
+            <p class="mt-2 leading-relaxed text-ink-soft">{m.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</Layout>

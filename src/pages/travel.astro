@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+
+const destinations = [
+  { place: "[Placeholder city, country]", year: "2023", note: "A line about why this place stuck with you." },
+  { place: "[Placeholder city, country]", year: "2022", note: "What you were doing there, and what you'd tell someone visiting." },
+  { place: "[Placeholder city, country]", year: "2021", note: "A short memory or highlight from the trip." },
+  { place: "[Placeholder city, country]", year: "2020", note: "Swap this card's photo and caption for your own." },
+  { place: "[Placeholder city, country]", year: "2019", note: "Keep captions short — one or two sentences reads best in a grid." },
+  { place: "[Placeholder city, country]", year: "2018", note: "Add as many of these as you like; the grid will keep flowing." },
+];
+
+// Warm, muted gradient placeholders standing in for real trip photos.
+const gradients = [
+  "from-rust/70 to-ink/40",
+  "from-ink/60 to-rust/30",
+  "from-rust-dark/60 to-cream-100",
+  "from-ink-soft/50 to-rust/40",
+  "from-rust/50 to-ink-soft/30",
+  "from-ink/50 to-rust-dark/40",
+];
+---
+
+<Layout title="Travel" description="Notes and photos from places that have shaped my perspective.">
+  <PageHero
+    eyebrow="On the road"
+    title="Travel"
+    intro="A placeholder gallery — swap in real photos and captions from your own trips."
+  />
+
+  <section class="mx-auto max-w-5xl px-6 pb-24">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        destinations.map((d, i) => (
+          <div class="overflow-hidden rounded-2xl border border-line bg-cream-100">
+            <div class={`flex h-40 items-center justify-center bg-linear-to-br ${gradients[i % gradients.length]}`}>
+              <span class="text-xs font-medium uppercase tracking-widest text-cream/90">Photo</span>
+            </div>
+            <div class="p-5">
+              <div class="flex items-baseline justify-between gap-2">
+                <h3 class="font-display text-lg font-semibold text-ink">{d.place}</h3>
+                <span class="text-xs font-medium text-ink-soft">{d.year}</span>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-ink-soft">{d.note}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Layout>
