@@ -36,15 +36,15 @@ The [Contact](src/pages/contact.astro) page posts to [Web3Forms](https://web3for
 
 The blog is edited as Markdown files in `src/content/blog/`, but you don't have to touch code to publish — [Decap CMS](https://decapcms.org) at `/admin` gives you a write-in-the-browser editor that commits directly to this GitHub repo.
 
-Setup (one-time):
+Repo: https://github.com/zylesruth/zylesruth-website (already set in `config.yml`).
 
-1. Push this repo to GitHub.
-2. Edit [public/admin/config.yml](public/admin/config.yml): set `repo` to `your-github-username/your-repo-name` and `base_url` to your live domain.
-3. Create a GitHub OAuth App at https://github.com/settings/developers → *New OAuth App*:
+Setup (one-time), still to do:
+
+1. Create a GitHub OAuth App at https://github.com/settings/developers → *New OAuth App*:
    - Homepage URL: your live domain (e.g. `https://www.zylesruth.com`)
    - Authorization callback URL: `https://www.zylesruth.com/api/callback`
-4. Set `OAUTH_GITHUB_CLIENT_ID` and `OAUTH_GITHUB_CLIENT_SECRET` (from the OAuth App) in Vercel's Project Settings → Environment Variables. Keep the secret out of the repo.
-5. Visit `https://www.zylesruth.com/admin`, log in with GitHub, and start writing. Each save opens a commit on the `main` branch.
+2. Set `OAUTH_GITHUB_CLIENT_ID` and `OAUTH_GITHUB_CLIENT_SECRET` (from the OAuth App) in Vercel's Project Settings → Environment Variables. Keep the secret out of the repo.
+3. Visit `https://www.zylesruth.com/admin`, log in with GitHub, and start writing. Each save opens a commit on the `main` branch.
 
 The two files under [api/](api) (`auth.js`, `callback.js`) implement the GitHub login handshake Decap expects; Vercel runs them automatically as serverless functions, no extra config needed.
 
