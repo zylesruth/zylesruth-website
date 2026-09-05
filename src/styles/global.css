@@ -12,10 +12,20 @@
   --color-rust: #b6512f;
   --color-rust-dark: #93401f;
   --color-line: #e4dbc9;
+
+  --color-brown: #3b2a1d;
+  --color-brown-dark: #211712;
+  --color-gold: #c9a24b;
+  --color-gold-light: #f0d78c;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Prevents a repeat-visit flash of the splash overlay before its script runs. */
+.no-splash #splash-overlay {
+  display: none;
 }
 
 body {

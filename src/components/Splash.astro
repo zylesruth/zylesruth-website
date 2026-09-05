@@ -1,0 +1,95 @@
+---
+const word = "zylesruth.com";
+const letters = word.split("");
+const holdMs = 900;
+const letterDelayMs = 65;
+const revealDurationMs = letters.length * letterDelayMs + holdMs;
+---
+
+<div
+  id="splash-overlay"
+  aria-hidden="true"
+  class="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-linear-to-br from-brown-dark via-brown to-brown-dark"
+  style={`animation-delay:${revealDurationMs}ms`}
+>
+  <div class="flex flex-col items-center px-6">
+    <p
+      class="splash-word whitespace-nowrap text-[9vw] font-semibold tracking-normal text-transparent sm:text-6xl sm:tracking-wide"
+      style="font-family: var(--font-display);"
+    >
+      {
+        letters.map((ch, i) => (
+          <span
+            class="splash-letter inline-block bg-linear-to-b from-gold-light to-gold bg-clip-text"
+            style={`animation-delay:${i * letterDelayMs}ms`}
+          >
+            {ch === " " ? " " : ch}
+          </span>
+        ))
+      }
+    </p>
+    <span class="splash-underline mt-4 block h-px bg-gold-light/70" style={`animation-delay:${letters.length * letterDelayMs + 100}ms`} />
+  </div>
+</div>
+
+<style>
+  #splash-overlay {
+    animation: splash-fade-out 0.6s ease forwards;
+  }
+
+  .splash-letter {
+    opacity: 0;
+    animation: splash-letter-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  .splash-underline {
+    width: 0;
+    animation: splash-underline-grow 0.7s ease forwards;
+  }
+
+  @keyframes splash-letter-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.5em) scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes splash-underline-grow {
+    to {
+      width: 8rem;
+    }
+  }
+
+  @keyframes splash-fade-out {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #splash-overlay {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const KEY = "zs-splash-seen";
+  const overlay = document.getElementById("splash-overlay");
+
+  if (overlay) {
+    if (sessionStorage.getItem(KEY)) {
+      overlay.remove();
+    } else {
+      sessionStorage.setItem(KEY, "1");
+      overlay.addEventListener("animationend", (e) => {
+        if (e.animationName === "splash-fade-out") overlay.remove();
+      });
+    }
+  }
+</script>

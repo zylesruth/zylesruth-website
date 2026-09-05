@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import Splash from "../components/Splash.astro";
 import { site } from "../data/site";
 
 interface Props {
@@ -21,8 +22,14 @@ const { title, description = site.description } = Astro.props;
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <title>{title} · {site.name}</title>
+    <script is:inline>
+      if (sessionStorage.getItem("zs-splash-seen")) {
+        document.documentElement.classList.add("no-splash");
+      }
+    </script>
   </head>
   <body class="flex min-h-screen flex-col font-body">
+    <Splash />
     <Nav />
     <main class="flex-1">
       <slot />
